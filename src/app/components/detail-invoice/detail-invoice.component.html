@@ -1,0 +1,82 @@
+<section class="bg-main-light rounded-4 shadow ps-3 pb-1 pt-2 mt-5" dir="rtl">
+    <div class="row">
+          <div class="text-center">
+ <h1 class=" m-2 fw-bolder">تفاصيل الفاتورة</h1></div>
+        <div class="col-lg-6 pe-5 text-end mt-3">
+            <h1 class="fw-bold h3"><i class="fas fa-user-alt small"> </i>تفاصيل العميل : </h1>
+            <p class="lead mb-md-1 me-3 fw-bold"> الإسم : {{detailsInvoice.name}}</p>
+            <p class="lead mb-4 me-3 fw-bold">  رقم الفاتورة : {{detailsInvoice.invoiceNumber}} </p>
+
+        </div>
+    </div>
+</section>
+
+<section dir="rtl">
+@if (detailsInvoice) {
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"> الصنف</th>
+      <th scope="col"> الكمية</th>
+      <th scope="col">سعر الوحدة</th>
+      <th scope="col"> إجمالي البيع</th>
+      <th scope="col">الخصم</th>
+      <th scope="col">الإجمالي بعد الخصم</th>
+      <th scope="col">الضريبة(14%)</th>
+        <th scope="col">الإجمالي </th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of detailsInvoice.items ; track item.id; let i = $index) {
+    <tr class="align-middle">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.name}}</td>
+      <td>  {{item.quantity}}</td>
+      <td >{{item.unitPrice}}</td>
+      <td>{{item.salesTotal}}</td>
+      <td>{{item.discount}}</td>
+      <td>{{item.netTotal}}</td>
+      <td>{{item.taxAmount}}</td>
+    <td>{{item.netTotal + item.taxAmount}}</td>
+    </tr>
+  }
+  </tbody>
+</table>
+}
+</section>
+
+<section class=" rounded-4  ps-3 pb-1 pt-2 mt-1" >
+    <div class="row">
+        <div class="col-lg-6 pe-5 text-end mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>{{detailsInvoice.subTotal}}</h5>
+            <h3 class="lead mb-md-1 me-3 fw-bold"> : إجمالي المبيعات  </h3>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="text-danger">-{{detailsInvoice.discountAmount}}</h5>
+            <h3 class="lead mb-md-1 me-3 fw-bold text-danger"> : إجمالي الخصم  </h3>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>{{detailsInvoice.subTotal - detailsInvoice.discountAmount}}</h5>
+            <h3 class="lead mb-md-1 me-3 fw-bold"> :  الصافي  </h3>
+          </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+            <h5>{{detailsInvoice.taxAmount}}</h5>
+            <h3 class="lead mb-md-1 me-3 fw-bold"> : ضريبة الدمغة المضافة  </h3>
+          </div>
+
+          <hr class="border border-black border-bottom ">
+            <div class="d-flex justify-content-between align-items-center">
+            <h5 class="fw-bolder">{{detailsInvoice.totalAmount}}</h5>
+            <h3 class="lead mb-md-1 me-3 fw-bolder"> :  المبلغ المستحق للدفع  </h3>
+          </div>
+
+        </div>
+    </div>
+</section>

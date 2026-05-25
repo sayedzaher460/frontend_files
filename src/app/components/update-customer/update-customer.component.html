@@ -1,0 +1,276 @@
+@if (Type==='فرد') {
+
+    <section class="bg-main-light shadow p-2 my-2 rounded" dir="rtl">
+    <!--class=> text-main is in global style-->
+    <h1 class="h2 text-main text-center mb-3 fw-bolder fs-4">تعديل عميل</h1>
+ <form [formGroup]="updatePersonalForm" (ngSubmit)="updateSubmit()" >
+        <div class="row g-3 mb-3">
+         <div class="col-md-6">
+            <label for="name" class="form-label pe-2 fw-bolder fs-4">إسم العميل</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updatePersonalForm.get('name')?.errors &&(updatePersonalForm.get('name')?.touched || updatePersonalForm.get('name')?.dirty),
+                'is-invalid' :updatePersonalForm.get('name')?.errors &&(updatePersonalForm.get('name')?.touched || updatePersonalForm.get('name')?.dirty)}" class="form-control" id="name" placeholder="إسم العميل" formControlName="name">
+
+          @if (updatePersonalForm.get('name')?.errors && (updatePersonalForm.get('name')?.touched || updatePersonalForm.get('name')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updatePersonalForm.get('name')?.getError('required'))
+            { 
+                <p class="m-0">إسم العميل لابد أن يكون موجود</p>
+            }
+            @else if (updatePersonalForm.get('name')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updatePersonalForm.get('name')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 100</p>
+            }
+        </div>
+       }
+        </div>
+
+
+            <div class="col-md-6">
+            <label for="nationalId" class="form-label pe-2 fw-bolder fs-4">الرقم القومي</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updatePersonalForm.get('nationalId')?.errors &&(updatePersonalForm.get('nationalId')?.touched || updatePersonalForm.get('nationalId')?.dirty),
+                'is-invalid' :updatePersonalForm.get('nationalId')?.errors &&(updatePersonalForm.get('nationalId')?.touched || updatePersonalForm.get('nationalId')?.dirty)}" class="form-control" id="nationalId" placeholder="الرقم القومي" formControlName="nationalId">
+
+          @if (updatePersonalForm.get('nationalId')?.errors && (updatePersonalForm.get('nationalId')?.touched || updatePersonalForm.get('nationalId')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updatePersonalForm.get('nationalId')?.getError('required'))
+            { 
+                <p class="m-0">الرقم القومي لابد أن يكون موجود</p>
+            }
+            @else if (updatePersonalForm.get('nationalId')?.getError('pattern'))
+             {
+            <p class="m-0">الرقم القومي يجب أن يكون 14 رقم</p>
+            }
+          
+        </div>
+       }
+        </div>
+
+        </div>
+
+
+              
+  <div class="row g-3"> 
+                 <div class="col-md-6">
+            <label for="governate" class="form-label pe-2 fw-bolder fs-4">إسم المحافظة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updatePersonalForm.get('governate')?.errors &&(updatePersonalForm.get('governate')?.touched || updatePersonalForm.get('governate')?.dirty),
+                'is-invalid' :updatePersonalForm.get('governate')?.errors &&(updatePersonalForm.get('governate')?.touched || updatePersonalForm.get('governate')?.dirty)}" class="form-control" id="governate" placeholder="إسم المحافظة" formControlName="governate">
+
+          @if (updatePersonalForm.get('governate')?.errors && (updatePersonalForm.get('governate')?.touched || updatePersonalForm.get('governate')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (updatePersonalForm.get('governate')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updatePersonalForm.get('governate')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+
+                  <div class="col-md-6">
+            <label for="city" class="form-label pe-2 fw-bolder fs-4">إسم المدينة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updatePersonalForm.get('city')?.errors &&(updatePersonalForm.get('city')?.touched || updatePersonalForm.get('city')?.dirty),
+                'is-invalid' :updatePersonalForm.get('city')?.errors &&(updatePersonalForm.get('city')?.touched || updatePersonalForm.get('city')?.dirty)}" class="form-control" id="city" placeholder="إسم المدينة" formControlName="city">
+
+          @if (updatePersonalForm.get('city')?.errors && (updatePersonalForm.get('city')?.touched || updatePersonalForm.get('city')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (updatePersonalForm.get('city')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updatePersonalForm.get('city')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+    </div>
+
+       <div class="col-md-6">
+            <label for="phone" class="form-label pe-2 fw-bolder fs-4">رقم التليفون</label>
+            <input type="tel" [ngClass]="{
+                'is-valid':!updatePersonalForm.get('phone')?.errors &&(updatePersonalForm.get('phone')?.touched || updatePersonalForm.get('phone')?.dirty),
+                'is-invalid' :updatePersonalForm.get('phone')?.errors &&(updatePersonalForm.get('phone')?.touched || updatePersonalForm.get('phone')?.dirty)}" class="form-control" id="phone" placeholder="ادخل رقم التليفون" formControlName="phone" dir="rtl">
+         
+         @if (updatePersonalForm.get('phone')?.errors && (updatePersonalForm.get('phone')?.touched || updatePersonalForm.get('phone')?.dirty)) 
+               {
+           <div class="alert alert-danger w-50">
+            @if(updatePersonalForm.get('phone')?.getError('maxlength'))
+            { 
+                <p class="m-0">لا يزيد الرقم عن 25 </p>
+  
+            }
+            @else if (updatePersonalForm.get('phone')?.getError('pattern'))
+             {
+            <p class="m-0">أدخل رقم هاتف صحيح</p>
+            }
+           
+        </div>
+       }
+       
+        </div>
+
+        <div class="text-start">
+            <button type="submit" class="btn-main m-2 ">إرسال </button>
+        </div>
+        </form>
+    </section>  
+}
+@if (Type === 'شركة') {
+
+
+
+    <section class="bg-main-light shadow p-2 my-2 rounded" dir="rtl">
+    <!--class=> text-main is in global style-->
+    <h1 class="h2 text-main text-center mb-3 fw-bolder fs-4">تعديل عميل</h1>
+ <form [formGroup]="updateCompanyForm" (ngSubmit)="updateSubmit()" >
+        <div class="row g-3 mb-3">
+         <div class="col-md-6">
+            <label for="name" class="form-label pe-2 fw-bolder fs-4">إسم العميل</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateCompanyForm.get('name')?.errors &&(updateCompanyForm.get('name')?.touched || updateCompanyForm.get('name')?.dirty),
+                'is-invalid' :updateCompanyForm.get('name')?.errors &&(updateCompanyForm.get('name')?.touched || updateCompanyForm.get('name')?.dirty)}" class="form-control" id="name" placeholder="إسم العميل" formControlName="name">
+
+          @if (updateCompanyForm.get('name')?.errors && (updateCompanyForm.get('name')?.touched || updateCompanyForm.get('name')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updateCompanyForm.get('name')?.getError('required'))
+            { 
+                <p class="m-0">إسم العميل لابد أن يكون موجود</p>
+            }
+            @else if (updateCompanyForm.get('name')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updateCompanyForm.get('name')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 100</p>
+            }
+        </div>
+       }
+        </div>
+
+
+             <div class="col-md-6">
+            <label for="taxNumber" class="form-label pe-2 fw-bolder fs-4"> السجل التجاري</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateCompanyForm.get('taxNumber')?.errors &&(updateCompanyForm.get('taxNumber')?.touched || updateCompanyForm.get('taxNumber')?.dirty),
+                'is-invalid' :updateCompanyForm.get('taxNumber')?.errors &&(updateCompanyForm.get('taxNumber')?.touched || updateCompanyForm.get('taxNumber')?.dirty)}" class="form-control" id="taxNumber" placeholder="السجل التجاري" formControlName="taxNumber">
+
+          @if (updateCompanyForm.get('taxNumber')?.errors && (updateCompanyForm.get('taxNumber')?.touched || updateCompanyForm.get('taxNumber')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updateCompanyForm.get('taxNumber')?.getError('required'))
+            { 
+                <p class="m-0">السجل التجاري لابد أن يكون موجود</p>
+            }
+            @else if (updateCompanyForm.get('taxNumber')?.getError('pattern'))
+             {
+            <p class="m-0">السجل التجاري يجب أن يكون أرقام فقط</p>
+            }
+          
+        </div>
+       }
+        </div>
+        
+
+
+        </div>
+    
+
+
+              
+  <div class="row g-3"> 
+                 <div class="col-md-6">
+            <label for="governate" class="form-label pe-2 fw-bolder fs-4">إسم المحافظة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateCompanyForm.get('governate')?.errors &&(updateCompanyForm.get('governate')?.touched || updateCompanyForm.get('governate')?.dirty),
+                'is-invalid' :updateCompanyForm.get('governate')?.errors &&(updateCompanyForm.get('governate')?.touched || updateCompanyForm.get('governate')?.dirty)}" class="form-control" id="governate" placeholder="إسم المحافظة" formControlName="governate">
+
+          @if (updateCompanyForm.get('governate')?.errors && (updateCompanyForm.get('governate')?.touched || updateCompanyForm.get('governate')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (updateCompanyForm.get('governate')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updateCompanyForm.get('governate')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+
+                  <div class="col-md-6">
+            <label for="city" class="form-label pe-2 fw-bolder fs-4">إسم المدينة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateCompanyForm.get('city')?.errors &&(updateCompanyForm.get('city')?.touched || updateCompanyForm.get('city')?.dirty),
+                'is-invalid' :updateCompanyForm.get('city')?.errors &&(updateCompanyForm.get('city')?.touched || updateCompanyForm.get('city')?.dirty)}" class="form-control" id="city" placeholder="إسم المدينة" formControlName="city">
+
+          @if (updateCompanyForm.get('city')?.errors && (updateCompanyForm.get('city')?.touched || updateCompanyForm.get('city')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (updateCompanyForm.get('city')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updateCompanyForm.get('city')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+    </div>
+
+       <div class="col-md-6">
+            <label for="phone" class="form-label pe-2 fw-bolder fs-4">رقم التليفون</label>
+            <input type="tel" [ngClass]="{
+                'is-valid':!updateCompanyForm.get('phone')?.errors &&(updateCompanyForm.get('phone')?.touched || updateCompanyForm.get('phone')?.dirty),
+                'is-invalid' :updateCompanyForm.get('phone')?.errors &&(updateCompanyForm.get('phone')?.touched || updateCompanyForm.get('phone')?.dirty)}" class="form-control" id="phone" placeholder="ادخل رقم التليفون" formControlName="phone" dir="rtl">
+         
+         @if (updateCompanyForm.get('phone')?.errors && (updateCompanyForm.get('phone')?.touched || updateCompanyForm.get('phone')?.dirty)) 
+               {
+           <div class="alert alert-danger w-50">
+            @if(updateCompanyForm.get('phone')?.getError('maxlength'))
+            { 
+                <p class="m-0">لا يزيد الرقم عن 25 </p>
+  
+            }
+            @else if (updateCompanyForm.get('phone')?.getError('pattern'))
+             {
+            <p class="m-0">أدخل رقم هاتف صحيح</p>
+            }
+           
+        </div>
+       }
+       
+        </div>
+
+        <div class="text-start">
+            <button type="submit" class="btn-main m-2 ">إرسال </button>
+        </div>
+        </form>
+    </section>  
+
+}

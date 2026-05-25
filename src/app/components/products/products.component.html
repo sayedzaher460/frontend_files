@@ -1,0 +1,52 @@
+<app-header> </app-header>
+
+<div>
+    <h1 class="fw-bold text-center m-5"><span class="border-bottom border-3 border-dark-subtle">إدارة المنتجات</span></h1>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="m-5">
+            <a  routerLink="/AddProduct" class="btn-main  text-center"><span class="ps-4">إاضافة منتج+ </span></a>
+        
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control w-100 mx-auto border border-black" placeholder="ابحث عن منتج..." dir="rtl" [(ngModel)]="text">
+    </div>
+</div>
+
+<section dir="rtl">
+
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">اسم المنتج</th>
+      <th scope="col">الكود</th>
+      <th scope="col">السعر</th>
+      <th scope="col">الكمية</th>
+      <th scope="col" colspan="2" class="text-center">الاجراءات</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of productlist | search:text; track item.id) {
+    <tr class="align-middle">
+      <th scope="row">{{productlist.indexOf(item)+1}}</th>
+      <td>{{item.name}}</td>
+      <td><span class="badge text-bg-info text-white fw-bolder">{{item.code}}</span></td>
+      <td>{{item.unitPrice}}</td>
+      <td>  <span  class="badge rounded-pill px-3 py-2 fw-bold"
+    [ngClass]="{'bg-success bg-opacity-10 text-white' : item.stockQuantity > 5,
+     'bg-warning bg-opacity-10 text-danger fw-bolder' : item.stockQuantity <= 5}"> {{item.stockQuantity}}</span></td>
+      <td class="text-center">
+        <a [routerLink]="['/EditProduct', item.id]" class="btn btn-sm btn-outline-primary m-2">تعديل</a>
+        <button class="btn btn-sm btn-outline-danger ms-2" (click)="deleteProductWithSweetAlert(item.id)">حذف</button> 
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+</section>
+
+

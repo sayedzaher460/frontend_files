@@ -1,0 +1,55 @@
+<app-header> </app-header>
+
+<div>
+    <h1 class="fw-bold text-center m-5"><span class="border-bottom border-3 border-dark-subtle">إدارة الفواتير</span></h1>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="m-5">
+            <a  routerLink="/AddInvoice" class="btn-main  text-center"><span class="ps-4">إاضافة فاتورة جديدة+ </span></a>
+        
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control w-100 mx-auto border border-black" placeholder="ابحث بالاسم أو الرقم..." dir="rtl" [(ngModel)]="text">
+    </div>
+</div>
+
+
+<section dir="rtl">
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">اسم العميل</th>
+      <th scope="col">رقم الفاتورة</th>
+      <th scope="col"> الاجمالي</th>
+      <th scope="col">الحالة</th>
+      <th scope="col" colspan="4" class="text-center">الاجراءات</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of invoices ; track item.id ; let i = $index) {
+    <tr class="align-middle">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.name}}</td>
+      <td>  {{item.invoiceNumber}}</td>
+      <td >{{item.totalAmount}}</td>
+ <td>  <span  class="badge rounded-pill px-3 py-2 fw-bold"
+    [ngClass]="{'bg-success bg-opacity-10 text-white' : item.status === 'مدفوع',
+     'bg-warning bg-opacity-10 text-danger fw-bolder' : item.status === 'غير مدفوع'}"> {{item.status}}</span></td>   
+        <td class="text-center">
+       
+
+            @if(item.status === 'غير مدفوع'){<button class="btn btn-sm btn-outline-primary ms-2" (click)="changeStatus(item.id,item.status,i)"><i class="fa fa-check"></i></button>}
+            @else if(item.status === 'مدفوع'){<button class="btn btn-sm btn-outline-primary ms-2" (click)="changeStatus(item.id,item.status,i)"><i class="fa fa-refresh"></i></button>}
+        
+        <a [routerLink]="['/DetailInvoice', item.id]" class="btn btn-sm btn-outline-primary m-2"><i class='fas fa-eye'></i></a>
+        <button class="btn btn-sm btn-outline-danger ms-2" ><i class="fa-solid fa-trash"></i></button> 
+        </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+</section>

@@ -1,0 +1,109 @@
+<section class="bg-main-light shadow p-2 my-2 rounded" dir="rtl">
+    <!--class=> text-main is in global style-->
+    <h1 class="h2 text-main text-center">تعديل منتج</h1>
+    <form [formGroup]="updateProductForm" (ngSubmit)="updateSubmit()" >
+        <div class="mb-3">
+            <label for="name" class="form-label pe-2 fw-bolder fs-4">إسم المنتج</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateProductForm.get('name')?.errors &&(updateProductForm.get('name')?.touched || updateProductForm.get('name')?.dirty),
+                'is-invalid' :updateProductForm.get('name')?.errors &&(updateProductForm.get('name')?.touched || updateProductForm.get('name')?.dirty)}" class="form-control" id="name" placeholder="إسم المنتج" formControlName="name">
+      
+      @if (updateProductForm.get('name')?.errors && (updateProductForm.get('name')?.touched || updateProductForm.get('name')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updateProductForm.get('name')?.getError('required'))
+            { 
+                <p class="m-0">إسم المنتج لابد أن يكون موجود</p>
+            }
+            @else if (updateProductForm.get('name')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (updateProductForm.get('name')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 150</p>
+            }
+        </div>
+       }
+        </div>
+
+      <div class="mb-3">
+            <label for="code" class="form-label pe-2 fw-bolder fs-4"> كود المنتج</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!updateProductForm.get('code')?.errors &&(updateProductForm.get('code')?.touched || updateProductForm.get('code')?.dirty),
+                'is-invalid' :updateProductForm.get('code')?.errors &&(updateProductForm.get('code')?.touched || updateProductForm.get('code')?.dirty)}" class="form-control" id="code" placeholder="Ex:Cpp-111" formControlName="code">
+      
+      @if (updateProductForm.get('code')?.errors && (updateProductForm.get('code')?.touched || updateProductForm.get('code')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(updateProductForm.get('code')?.getError('required'))
+            { 
+                <p class="m-0">الكود لابد أن يكون موجود</p>
+            }
+            @else if (updateProductForm.get('code')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكود هو 3</p>
+            }
+            @else if (updateProductForm.get('code')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول للكود هو 150</p>
+            }
+        </div>
+       }
+        </div>
+
+        <div class="row gap-5">
+             <div class="col-md-4 mb-3">
+            <label for="unitPrice" class="form-label pe-2 fw-bolder fs-4"> السعر</label>
+            <input type="number" [ngClass]="{
+                'is-valid':!updateProductForm.get('unitPrice')?.errors &&(updateProductForm.get('unitPrice')?.touched || updateProductForm.get('unitPrice')?.dirty),
+                'is-invalid' :updateProductForm.get('unitPrice')?.errors &&(updateProductForm.get('unitPrice')?.touched || updateProductForm.get('unitPrice')?.dirty)}" class="form-control" id="unitPrice" placeholder="1" formControlName="unitPrice">
+      
+      @if (updateProductForm.get('unitPrice')?.errors && (updateProductForm.get('unitPrice')?.touched || updateProductForm.get('unitPrice')?.dirty)) 
+       {
+        <div class="alert alert-danger ">
+            @if(updateProductForm.get('unitPrice')?.getError('required'))
+            { 
+                <p class="m-0">السعر لابد أن يكون موجود</p>
+            }
+            @else if (updateProductForm.get('unitPrice')?.getError('min'))
+             {
+            <p class="m-0">السعر يجب أن يكون أكبر من صفر</p>
+            }
+            
+        </div>
+       }
+        </div>
+
+
+                     <div class="col-md-4">
+            <label for="stockQuantity" class="form-label pe-2 fw-bolder fs-4"> الكمية</label>
+            <input type="number" [ngClass]="{
+                'is-valid':!updateProductForm.get('stockQuantity')?.errors &&(updateProductForm.get('stockQuantity')?.touched || updateProductForm.get('stockQuantity')?.dirty),
+                'is-invalid' :updateProductForm.get('stockQuantity')?.errors &&(updateProductForm.get('stockQuantity')?.touched || updateProductForm.get('stockQuantity')?.dirty)}" class="form-control" id="stockQuantity" placeholder="1" formControlName="stockQuantity">
+      
+      @if (updateProductForm.get('stockQuantity')?.errors && (updateProductForm.get('stockQuantity')?.touched || updateProductForm.get('stockQuantity')?.dirty)) 
+       {
+        <div class="alert alert-danger ">
+            @if(updateProductForm.get('stockQuantity')?.getError('required'))
+            { 
+                <p class="m-0">الكمية لابد أن تكون موجود</p>
+            }
+            @else if (updateProductForm.get('stockQuantity')?.getError('min'))
+             {
+            <p class="m-0">الكمية يجب أن تكون أكبر من أو تساوي صفر</p>
+            }
+            
+        </div>
+       }
+        </div>
+        </div>
+      <div class="d-flex justify-content-end align-items-center m-3">
+        <button type="submit" class="btn-main ms-2" >تعديل
+        </button>
+
+        <a routerLink="/products" class="btn btn-danger ms-2">رجوع </a>
+
+        </div>
+    </form>
+    </section>  

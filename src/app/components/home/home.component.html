@@ -1,0 +1,127 @@
+<app-header class="mb-4"> </app-header>
+<div class="container mt-5">
+  <div class="row g-4 justify-content-center">
+
+    <!-- المنتجات -->
+    <div class="col-md-5">
+      <a routerLink="/products" class="text-decoration-none">
+        <div class="card text-center p-5 shadow-lg btn-main" style="height: 200px;">
+          <h2>إدارة المنتجات </h2>
+        </div>
+      </a>
+    </div>
+
+    <!-- العملاء -->
+    <div class="col-md-5">
+      <a routerLink="/customers" class="text-decoration-none">
+        <div class="card text-center p-5 shadow-lg btn-main" style="height: 200px;">
+          <h2>إدارة العملاء </h2>
+        </div>
+      </a>
+    </div>
+
+    <!-- الفواتير -->
+    <div class="col-md-5">
+      <a routerLink="/invoices" class="text-decoration-none">
+        <div class="card text-center p-5 shadow-lg btn-main" style="height: 200px;">
+          <h2>إدارة الفواتير </h2>
+        </div>
+      </a>
+
+  </div>
+</div>
+<div class="text-center m-5"><h1 class="fw-bolder ">تحليل البيانات</h1>
+</div>
+<p class="lead text-danger fw-bold" dir="rtl">نظرة شاملة علي أداء مؤسستك</p>
+
+<section class="bg-main-light shadow p-2 my-2 rounded" dir="rtl">
+    <div class="row">
+        <div class="col-lg-6 pe-5 text-end mt-3">
+            <h1 class="fw-bold h3"><i class="fas fa-chart-bar small"> </i>تحليل المبيعات : </h1>
+            <p class="lead mb-md-1 me-3 fw-bold"> إجمالي المبيعات : {{ result.subTotal | currency:'USD' }} </p>
+            <p class="lead mb-4 me-3 fw-bold">  إجمالي الخصومات : {{ result.discountAmount | currency:'USD' }} </p>
+            <p class="lead mb-4 me-3 fw-bold">  إجمالي الضرائب : {{ result.taxAmount | currency:'USD' }} </p>
+            <p class="lead mb-4 me-3 fw-bold">  إجمالي المبيعات بعد الخصم والضريبة : {{ result.totalAmount | currency:'USD' }} </p>
+        </div>
+        <div class="col-lg-6 ps-5 text-start mt-3">
+            <h1 class="fw-bold h3"><i class="fas fa-chart-pie small"> </i>تحليل العملاء : </h1>
+            <p class="lead mb-md-1 ms-3 fw-bold"> إجمالي العملاء : {{ result.totalCountOfCustomer }} </p>
+            <p class="lead mb-4 ms-3 fw-bold">  العملاء الأفراد : {{ result.countOfPersons }} </p>
+            <p class="lead mb-4 ms-3 fw-bold">  العملاء الشركات : {{ result.countOfCompanies }} </p>
+        </div>  
+    </div>
+</section>
+
+<div class=" mt-5 text-danger" dir="rtl"><h1 class="fw-bolder ">أفضل 10 عملاء</h1>
+</div>
+
+<section dir="rtl">
+
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">اسم العميل</th>
+      <th scope="col">النوع</th>
+      <th scope="col">الرقم القومي/التسجيل الضريبي</th>
+      <th scope="col">العنوان</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of customers ; track item.id) {
+    <tr class="align-middle">
+      <th scope="row">{{customers.indexOf(item)+1}}</th>
+      <td>{{item.name}}</td>
+        <td>  <span class="badge fw-bolder text-black"
+       [ngStyle]="{
+          'background-color': item.type === 'فرد' ? '#cce5ff' : '#d4edda',
+          'border-radius': '0.5rem'
+        }"> @if(item.type === 'فرد')
+         {   <i class="fas fa-user-alt me-1"> </i> فرد }
+          @else {  <i class="far fa-building me-1"></i> شركة }</span></td>
+      <td><span class="badge text-bg-info text-white fw-bolder">  {{ item.type === 'فرد' ? (item.nationalId ?? '') : (item.taxNumber ?? '') }}</span></td>
+      <td>{{item.governate}}-{{item.city}}</td>
+      <td>  
+   </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+</section>
+
+<div class=" mt-5 text-danger" dir="rtl"><h1 class="fw-bolder ">أفضل 10 منتجات</h1>
+</div>
+<section dir="rtl">
+
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">اسم المنتج</th>
+      <th scope="col">الكود</th>
+      <th scope="col">السعر</th>
+      <th scope="col">الكمية</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of products ; track item.id) {
+    <tr class="align-middle">
+      <th scope="row">{{products.indexOf(item)+1}}</th>
+      <td>{{item.name}}</td>
+      <td><span class="badge text-bg-info text-white fw-bolder">{{item.code}}</span></td>
+      <td>{{item.unitPrice}}</td>
+      <td>  <span  class="badge rounded-pill px-3 py-2 fw-bold"
+    [ngClass]="{'bg-success bg-opacity-10 text-white' : item.stockQuantity > 5,
+     'bg-warning bg-opacity-10 text-danger fw-bolder' : item.stockQuantity <= 5}"> {{item.stockQuantity}}</span></td>
+   
+    </tr>
+  }
+  </tbody>
+</table>
+
+</section>

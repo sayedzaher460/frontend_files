@@ -1,0 +1,262 @@
+<!-- <input type="text" placeholder="اسم المنتج"(change)="searchProduct()" [(ngModel)]="textSearch">-->
+  
+<div class="text-center m-3">
+<h1 class=" d-inline-block border-bottom border-dark border-3"> إنشاء فاتورة جديدة</h1>
+</div>
+<section class="bg-main-light shadow p-2 my-2 rounded" dir="rtl">
+    <!--class=> text-main is in global style-->
+
+    <!--buttons -->
+    <div class="d-flex justify-content-center gap-1 mb-4">
+
+    <button type="button"
+            class="btn btn-outline-primary"
+      [ngClass]="{'btn-primary text-white':Type==='فرد'}"       
+     (click)="selectType('فرد')">
+     <i class='fas fa-user-alt'></i> فرد
+    </button>
+
+ 
+
+  </div>
+
+     @if (Type==='فرد') {
+
+     <form [formGroup]="invoicePersonalForm" (ngSubmit)="addSubmit()" >
+        <div class="row g-3 mb-3">
+         <div class="col-md-6">
+            <label for="name" class="form-label pe-2 fw-bolder fs-4">إسم العميل</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!invoicePersonalForm.get('name')?.errors &&(invoicePersonalForm.get('name')?.touched || invoicePersonalForm.get('name')?.dirty),
+                'is-invalid' :invoicePersonalForm.get('name')?.errors &&(invoicePersonalForm.get('name')?.touched || invoicePersonalForm.get('name')?.dirty)}" class="form-control" id="name" placeholder="إسم العميل" formControlName="name">
+
+          @if (invoicePersonalForm.get('name')?.errors && (invoicePersonalForm.get('name')?.touched || invoicePersonalForm.get('name')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(invoicePersonalForm.get('name')?.getError('required'))
+            { 
+                <p class="m-0">إسم العميل لابد أن يكون موجود</p>
+            }
+            @else if (invoicePersonalForm.get('name')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (invoicePersonalForm.get('name')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 100</p>
+            }
+        </div>
+       }
+        </div>
+
+
+            <div class="col-md-6">
+            <label for="nationalId" class="form-label pe-2 fw-bolder fs-4">الرقم القومي</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!invoicePersonalForm.get('nationalId')?.errors &&(invoicePersonalForm.get('nationalId')?.touched || invoicePersonalForm.get('nationalId')?.dirty),
+                'is-invalid' :invoicePersonalForm.get('nationalId')?.errors &&(invoicePersonalForm.get('nationalId')?.touched || invoicePersonalForm.get('nationalId')?.dirty)}" class="form-control" id="nationalId" placeholder="الرقم القومي"  #national  (change)="sendNationalId(national.value)">
+
+
+          @if (invoicePersonalForm.get('nationalId')?.errors && (invoicePersonalForm.get('nationalId')?.touched || invoicePersonalForm.get('nationalId')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+            @if(invoicePersonalForm.get('nationalId')?.getError('required'))
+            { 
+                <p class="m-0">الرقم القومي لابد أن يكون موجود</p>
+            }
+            @else if (invoicePersonalForm.get('nationalId')?.getError('pattern'))
+             {
+            <p class="m-0">الرقم القومي يجب أن يكون 14 رقم</p>
+            }
+          
+        </div>
+       }
+        </div>
+
+        </div>
+  <div class="row g-3"> 
+                 <div class="col-md-6">
+            <label for="governate" class="form-label pe-2 fw-bolder fs-4">إسم المحافظة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!invoicePersonalForm.get('governate')?.errors &&(invoicePersonalForm.get('governate')?.touched || invoicePersonalForm.get('governate')?.dirty),
+                'is-invalid' :invoicePersonalForm.get('governate')?.errors &&(invoicePersonalForm.get('governate')?.touched || invoicePersonalForm.get('governate')?.dirty)}" class="form-control" id="governate" placeholder="إسم المحافظة" formControlName="governate">
+
+          @if (invoicePersonalForm.get('governate')?.errors && (invoicePersonalForm.get('governate')?.touched || invoicePersonalForm.get('governate')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (invoicePersonalForm.get('governate')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (invoicePersonalForm.get('governate')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+
+                  <div class="col-md-6">
+            <label for="city" class="form-label pe-2 fw-bolder fs-4">إسم المدينة</label>
+            <input type="text" [ngClass]="{
+                'is-valid':!invoicePersonalForm.get('city')?.errors &&(invoicePersonalForm.get('city')?.touched || invoicePersonalForm.get('city')?.dirty),
+                'is-invalid' :invoicePersonalForm.get('city')?.errors &&(invoicePersonalForm.get('city')?.touched || invoicePersonalForm.get('city')?.dirty)}" class="form-control" id="city" placeholder="إسم المدينة" formControlName="city">
+
+          @if (invoicePersonalForm.get('city')?.errors && (invoicePersonalForm.get('city')?.touched || invoicePersonalForm.get('city')?.dirty)) 
+       {
+        <div class="alert alert-danger w-50">
+        
+            @if (invoicePersonalForm.get('city')?.getError('minlength'))
+             {
+            <p class="m-0">أقل طول للكلمة هو 3</p>
+            }
+            @else if (invoicePersonalForm.get('city')?.getError('maxlength')) 
+            {
+                <p class="m-0">أكبر طول  للكلمة هو 25</p>
+            }
+        </div>
+       }
+        </div>
+
+      
+    </div>
+
+
+
+<button type="button" class="btn-main  text-center mt-4" (click)="AddItem()">AddItem</button>
+     <section class="mt-3" dir="rtl">
+
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"> اسم الصنف</th>
+      <th scope="col">الكمية</th>
+      <th scope="col">سعر الوحدة</th>
+      <th scope="col">إجمالي البيع</th>
+      <th scope="col"> %الخصم</th>
+      <th scope="col"> الإجمالي بعد الخصم</th>
+      <th scope="col"> %الضريبة 14</th>
+      <th scope="col">الاجمالي</th>
+
+    </tr>
+  </thead>
+    <tbody formArrayName='items'>
+    @for ( item of items.controls; track $index)
+        {
+        <tr [formGroupName]="items.controls.indexOf(item)">
+            <td>{{items.controls.indexOf(item)+1}}</td>
+            
+            <td>
+                
+  <!-- hidden input للـ ID -->
+  <input type="hidden" formControlName="productId">
+
+                <input type="text" #text  (input)="searchProduct(text.value, items.controls.indexOf(item))">
+                @if (products[$index] && products[$index].length)  {
+                     <div class="list-group">
+  <button 
+    type="button"
+    class="list-group-item list-group-item-action"
+    *ngFor="let product of products[$index]"
+    (click)="selectProduct(product, $index)">
+    
+    {{product.name}}
+
+  </button>
+</div>
+                }
+
+            </td>
+            <td>
+                <input type="number" formControlName="quantity">
+                @if (item.get('quantity')?.errors && (item.get('quantity')?.touched || item.get('quantity')?.dirty)) 
+        {
+            <div class="text-danger w-50">
+                @if(item.get('quantity')?.getError('required'))
+                { 
+                    <p class="m-0">الكمية لابد أن تكون موجود</p>
+                }
+                @else if (item.get('quantity')?.getError('min'))
+                {
+                <p class="m-0">أقل كمية هو 1</p>
+                }
+            
+            </div>
+        }
+            </td>
+            <td>
+                <input type="number" [ngClass]="{
+                    'is-valid':!item.get('unitPrice')?.errors &&(item.get('unitPrice')?.touched || item.get('unitPrice')?.dirty),
+                    'is-invalid' :item.get('unitPrice')?.errors &&(item.get('unitPrice')?.touched || item.get('unitPrice')?.dirty)}" class="form-control"  formControlName="unitPrice">
+    
+    <div class="invalid-feedback" *ngIf="item.get('unitPrice')?.invalid && (item.get('unitPrice')?.touched || item.get('unitPrice')?.dirty)">
+        <p *ngIf="item.get('unitPrice')?.hasError('required')" class="m-0">السعر لابد أن يكون موجود</p>
+        <p *ngIf="item.get('unitPrice')?.hasError('min')" class="m-0">السعر يجب أن يكون أكبر من صفر</p>
+    </div>
+    </td>
+
+            <td>
+                {{item.get('quantity')?.value * item.get('unitPrice')?.value}}
+            </td>
+                <td>
+                <input type="number" [ngClass]="{
+                    'is-valid':!item.get('discount')?.errors &&(item.get('discount')?.touched || item.get('discount')?.dirty),
+                    'is-invalid' :item.get('discount')?.errors &&(item.get('discount')?.touched || item.get('discount')?.dirty)}" class="form-control"  formControlName="discount">
+    
+    @if (item.get('discount')?.errors && (item.get('discount')?.touched || item.get('discount')?.dirty)) 
+        {
+            <div class="text-danger w-50">
+                @if(item.get('discount')?.getError('required'))
+                { 
+                    <p class="m-0">الكمية لابد أن تكون موجود</p>
+                }
+                @else if (item.get('discount')?.getError('min'))
+                {
+                <p class="m-0">أقل كمية هو 0</p>
+                }
+            
+            </div>
+        }
+            </td>
+
+            <td>
+                {{(item.get('quantity')?.value * item.get('unitPrice')?.value)-((item.get('quantity')?.value * item.get('unitPrice')?.value)* (item.get('discount')?.value)/100)}}
+            </td>
+            <td>
+    {{ (((item.get('quantity')?.value || 0) * (item.get('unitPrice')?.value || 0) - 
+        ((item.get('quantity')?.value || 0) * (item.get('unitPrice')?.value || 0) * (item.get('discount')?.value || 0)/100)
+        ) * 0.14
+    ).toFixed(2) }}
+            </td>
+            <td> 
+                {{(item.get('quantity')?.value * item.get('unitPrice')?.value)-((item.get('quantity')?.value * item.get('unitPrice')?.value)* (item.get('discount')?.value)/100)+((item.get('quantity')?.value || 0) * (item.get('unitPrice')?.value || 0) - 
+        ((item.get('quantity')?.value || 0) * (item.get('unitPrice')?.value || 0) * (item.get('discount')?.value || 0)/100)
+        ) * 0.14
+    }}
+
+            </td>
+            <td class="btn btn-danger" (click)="items.removeAt(items.controls.indexOf(item))">Delete</td>
+            </tr>
+            
+        }
+    </tbody>
+
+ 
+</table> 
+
+
+</section>
+
+
+        <div class="text-start">
+            <button type="submit" class="btn-main m-2 ">Add Invoice </button>
+        </div>
+     </form>
+    
+    }
+
+    
+</section>

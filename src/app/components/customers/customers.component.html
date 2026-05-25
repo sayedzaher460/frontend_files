@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<div>
+    <h1 class="fw-bold text-center m-5"><span class="border-bottom border-3 border-dark-subtle">إدارة العملاء</span></h1>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="m-5">
+            <a  routerLink="/AddCustomer" class="btn-main  text-center"><span class="ps-4">إاضافة عميل جديد+ </span></a>
+        
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control w-100 mx-auto border border-black" placeholder="ابحث بالاسم أو الرقم..." dir="rtl" [(ngModel)]="text">
+    </div>
+</div>
+
+
+
+
+<section dir="rtl">
+
+    <table class="table table-striped rounded-4 shadow table-hover">
+
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">اسم العميل</th>
+      <th scope="col">النوع</th>
+      <th scope="col">الرقم القومي/التسجيل الضريبي</th>
+      <th scope="col">العنوان</th>
+      <th scope="col" colspan="2" class="text-center">الاجراءات</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  @for (item of customers | search:text; track item.id) {
+    <tr class="align-middle">
+      <th scope="row">{{customers.indexOf(item)+1}}</th>
+      <td>{{item.name}}</td>
+        <td>  <span class="badge fw-bolder text-black"
+       [ngStyle]="{
+          'background-color': item.type === 'فرد' ? '#cce5ff' : '#d4edda',
+          'border-radius': '0.5rem'
+        }"> @if(item.type === 'فرد')
+         {   <i class="fas fa-user-alt me-1"> </i> فرد }
+          @else {  <i class="far fa-building me-1"></i> شركة }</span></td>
+      <td><span class="badge text-bg-info text-white fw-bolder">  {{ item.type === 'فرد' ? (item.nationalId ?? '') : (item.taxNumber ?? '') }}</span></td>
+      <td>{{item.governate}}-{{item.city}}</td>
+      <td>  
+   </td>
+      <td class="text-center">
+        <a [routerLink]="['/EditCustomer', item.id]" class="btn btn-sm btn-outline-primary m-2"><i class="fas fa-edit"></i></a>
+        <button class="btn btn-sm btn-outline-danger ms-2" (click)="deleteCustomerWithSweetAlert(item.id)" ><i class="fa-solid fa-trash"></i></button> 
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+</section>
